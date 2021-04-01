@@ -1,0 +1,26 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+@{
+    var Login = Context.Session.GetString("Login");
+    User user;
+    if (Login == null)
+    {  user= new User() { Name = "No User" }; }
+    else {
+       user = new User() { Name = Login };
+    }
+
+    }
+<div style="background-color:aquamarine; width:150px; height:150px; text-align:center;">
+    <div>
+        <br />
+        @user.Name
+    </div>
+    @if (Login != null)
+    {
+    <a href="User/Logout?returnTo=@Context.Request.Path">Log out</a>
+    }
+</div>

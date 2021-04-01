@@ -1,0 +1,114 @@
+﻿@model IEnumerable<WebDataBase_Correct.DB.Product>
+@using Microsoft.AspNetCore.Http 
+
+@{
+    ViewData["Title"] = "ProductList";
+}
+
+<h1>ProductList</h1>
+
+<form method="get">
+    <input type="text" name="name" value="@ViewBag.CurrentFiltr" size="10"  />
+    <input type="number" name="priceMin" value="@ViewBag.PriceMin" size="10" />
+    <input type="number" name="priceMax" value="@ViewBag.PriceMax" size="10" />
+    <button type="submit">Search</button>
+    @if (ViewBag.CurrentFiltr != null || ViewBag.PriceMin !=null || ViewBag.PriceMax !=null)
+    {
+        <a href="/Product/Index?name=~~clear~~">Back to Full List</a>
+    }
+
+</form>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductionId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductionDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Exist)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductionId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Discription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductionDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Discount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Exist)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+@for (int i = 0; i < ViewBag.PageCount; i++)
+{
+    if (i == ViewBag.CurrentPage)
+    {
+        @:<a href="?page=@i" class="currentPage">@(i+1)</a>&nbsp;&nbsp;
+    }
+    else
+    {
+        @:<a href="?page=@i">@(i+1)</a>&nbsp;&nbsp;
+    }
+}
+<br /><br />
+
+@Html.Partial("UserPanel");
+@Html.SimpleHelper();

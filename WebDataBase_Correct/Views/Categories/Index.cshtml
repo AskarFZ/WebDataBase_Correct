@@ -1,0 +1,59 @@
+﻿@model IEnumerable<WebDataBase_Correct.DB.Category>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Disription)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Disription)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
+                    <a asp-action="ShowProductByCategory" asp-controller="Product" asp-route-id="@item.CategoryId">ShowProducts</a>
+                    <a href="/Product/ShowProductByCategory?CategoryId=@item.CategoryId">ShowProducts</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.SimpleHelper();
+@{ 
+    List<string> ls = new List<string>();
+    foreach(WebDataBase_Correct.DB.Category item in Model)
+    {
+        ls.Add(item.Name);
+    }
+}
+
+@Html.ShowListHelper(ls);
+@Html.ShowListHelper(Model);
+@Html.ShowListHelper(Model, "circle");
+<test color="red"> </test>
+<table categories="@Model">  </table>
+<table border="1"> <tr> <td> asdasdas </td>  </tr> </table>
